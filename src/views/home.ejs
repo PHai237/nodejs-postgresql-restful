@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div style="margin: 25px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>List Users</h1>
+            <div>
+                <a href="/create-user" class="btn btn-warning">Create a new user</a>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <% users.forEach( function (user) { %>
+                    <tr>
+                        <td><%= user.id %></td>
+                        <td><%= user.name %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.address %></td>
+                        <td>
+                            <div style="display: flex; gap: 10px;">
+                                <!-- <form action="">
+                                    <button class="btn btn-primary">Edit</button>
+                                </form> -->
+                                <form action="/view-user/<%= user.id %>" method="get">
+                                    <button type="submit" class="btn btn-warning">View</button>
+                                </form>
+                                <form action="/delete-user/<%= user.id %>" method="post">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

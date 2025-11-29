@@ -1,0 +1,51 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id             Int             @id @default(autoincrement())
+  username       String?         @unique @db.VarChar(50)
+  name           String?         @db.VarChar(255)
+  email          String?         @unique @db.VarChar(255)
+  address        String?         @db.VarChar(255)
+  passwordHash   String?
+  role           Role            @default(USER)
+
+  refreshTokens  RefreshToken[]
+  oauthAccounts  OAuthAccount[]
+}
+
+model RefreshToken {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash  String   @unique
+  expiresAt  DateTime
+  revokedAt  DateTime?
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+model OAuthAccount {
+  id             Int      @id @default(autoincrement())
+  provider       String
+  providerUserId String
+  userId         Int
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+
+  @@unique([provider, providerUserId])
+  @@index([userId])
+}

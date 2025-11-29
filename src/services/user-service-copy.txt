@@ -1,0 +1,67 @@
+import pool from '../config/database';
+
+type User = { id: number; name: string; email: string; address: string };
+
+export async function createUser(fullName: string, email: string, address: string) {
+  try {
+    const text =
+      'INSERT INTO users (name, email, address) VALUES ($1, $2, $3) RETURNING id, name, email, address';
+    const { rows } = await pool.query<User>(text, [fullName, email, address]);
+    return rows[0] ?? null;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+export async function getAllUsers(): Promise<User[]> {
+  try {
+    const { rows } = await pool.query<User>(
+      'SELECT id, name, email, address FROM users ORDER BY id ASC'
+    );
+    return rows;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+}
+
+export async function deleteUser(id: string) {
+  try {
+    const { rowCount } = await pool.query('DELETE FROM users WHERE id = $1', [id]);
+    return { ok: rowCount === 1 };
+  } catch (err) {
+    console.error(err);
+    return { ok: false };
+  }
+}
+
+export async function getUserById(id: string): Promise<User | null> {
+  try {
+    const { rows } = await pool.query<User>(
+      'SELECT id, name, email, address FROM users WHERE id = $1',
+      [id]
+    );
+    return rows[0] ?? null;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+export async function updateUserById(
+  id: string,
+  fullName: string,
+  email: string,
+  address: string
+) {
+  try {
+    const text =
+      'UPDATE users SET name = $1, email = $2, address = $3 WHERE id = $4 RETURNING id, name, email, address';
+    const { rows } = await pool.query<User>(text, [fullName, email, address, id]);
+    return rows[0] ?? null;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}

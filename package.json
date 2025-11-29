@@ -1,0 +1,73 @@
+{
+  "name": "nodejs-pro-hoidanit",
+  "version": "1.0.0",
+  "description": "nodejs pro hoidanit",
+  "keywords": [
+    "nodejs",
+    "express"
+  ],
+  "homepage": "https://github.com/PHai237/nodejs-pro-hoidanit#readme",
+  "bugs": {
+    "url": "https://github.com/PHai237/nodejs-pro-hoidanit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PHai237/nodejs-pro-hoidanit.git"
+  },
+  "license": "ISC",
+  "author": "Magica",
+  "type": "commonjs",
+  "main": "dist/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon",
+    "dev": "nodemon",
+    "start:debug": "nodemon --inspect=9229 -e ts,tsx --exec node -r ts-node/register -r tsconfig-paths/register ./src/app.ts"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "ignore": [
+      "node_modules"
+    ],
+    "exec": "ts-node -r tsconfig-paths/register ./src/app.ts"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "16.4.7",
+    "ejs": "3.1.10",
+    "express": "5.0.1",
+    "express-session": "^1.18.2",
+    "firebase-admin": "^13.6.0",
+    "glob": "^13.0.0",
+    "google-auth-library": "^10.4.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "3.12.0",
+    "openid-client": "^6.8.1",
+    "passport-facebook": "^3.0.0",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.18.0",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/ejs": "3.1.5",
+    "@types/express": "5.0.0",
+    "@types/express-session": "^1.18.2",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "22.10.7",
+    "@types/passport-facebook": "^3.0.4",
+    "@types/pg": "^8.15.5",
+    "i": "^0.3.7",
+    "nodemon": "3.1.9",
+    "npm": "^11.6.0",
+    "prisma": "^6.18.0",
+    "ts-node": "10.9.2",
+    "tsconfig-paths": "4.2.0",
+    "typescript": "5.7.3"
+  }
+}
