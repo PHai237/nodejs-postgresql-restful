@@ -8,10 +8,14 @@ const serviceAccountPath = path.join(__dirname, '../../firebase-service-account.
 // Đọc file JSON (Node.js require được JSON)
 const serviceAccount = require(serviceAccountPath);
 
+// Khởi tạo Firebase Admin SDK
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
 }
 
-export { admin };
+// Lấy đối tượng Firestore
+const db = admin.firestore();  // Đối tượng Firestore
+
+export { db, admin };

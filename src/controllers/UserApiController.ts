@@ -1,6 +1,6 @@
 // src/controllers/UserApiController.ts
 import { Request, Response } from 'express';
-import { createUser, deleteUser, getAllUsers, getUserById, updateUserById } from 'services/user-service';
+import { createUser, deleteUser, getAllUsers, getUserById, updateUser } from 'services/user-service';
 
 // GET /api/users
 const getUsers = async (req: Request, res: Response) => {
@@ -49,7 +49,7 @@ const putUpdateUser = async (req: Request, res: Response) => {
   const exists = await getUserById(id);
   if (!exists) return res.status(404).json({ error: 'User not found' });
 
-  const updated = await updateUserById(id, finalName, finalEmail, finalAddress);
+  const updated = await updateUser(id, finalName, finalEmail, finalAddress);
   return res.status(200).json({ data: updated });
 };
 
@@ -63,7 +63,7 @@ const patchUpdateUser = async (req: Request, res: Response) => {
   const nextEmail = (req.body?.email ?? current.email)?.trim?.() ?? current.email;
   const nextAddr = (req.body?.address ?? current.address)?.trim?.() ?? current.address;
 
-  const updated = await updateUserById(id, nextName, nextEmail, nextAddr);
+  const updated = await updateUser(id, nextName, nextEmail, nextAddr);
   return res.status(200).json({ data: updated });
 };
 
